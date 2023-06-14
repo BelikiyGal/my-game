@@ -1,23 +1,38 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Название вашей игры</title>
 </head>
 <body>
     <h1>Добро пожаловать в игру "Название вашей игры"</h1>
-
+    
     <p>Описание игры: Ваше описание игры здесь</p>
-
+    
     <p>Краткая инструкция: Ваша инструкция здесь</p>
-
+    
     <form action="game.html">
         <label for="playerName">Введите ваше имя:</label>
         <input type="text" id="playerName" name="playerName" required>
         <br><br>
-        <label for="sessionId">Введите идентификатор игровой сессии:</label>
-        <input type="text" id="sessionId" name="sessionId" required>
-        <br><br>
-        <input type="submit" value="Присоединиться к игре">
+        <input type="submit" value="Создать игровую сессию">
     </form>
+    
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var playerName = document.getElementById('playerName').value;
+            var sessionId = generateSessionId(); // Создаем уникальный идентификатор игровой сессии
+            
+            // Перенаправляем на страницу игры, передавая имя игрока и идентификатор игровой сессии
+            window.location.href = "game.html?playerName=" + encodeURIComponent(playerName) + "&sessionId=" + encodeURIComponent(sessionId);
+        });
+        
+        // Функция для генерации уникального идентификатора игровой сессии
+        function generateSessionId() {
+            var timestamp = Date.now().toString();
+            var randomNum = Math.floor(Math.random() * 10000).toString();
+            return timestamp + randomNum;
+        }
+    </script>
 </body>
 </html>
